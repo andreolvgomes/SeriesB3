@@ -32,11 +32,37 @@
                 <TextBox x:Name="txtFile"/>
                 <Button Grid.Column="1" Content="..." Width="30" Click="ChooseFile_Click"/>
             </Grid>
+
+            <GroupBox Margin="0,2,0,0">
+                <GroupBox.Header>
+                    <RadioButton Content="CSV" GroupName="raSend"/>
+                </GroupBox.Header>
+                <StackPanel>
+                    <TextBlock Text="Delimitador"/>
+                    <TextBox Text="," Width="50" HorizontalAlignment="Left"/>
+
+                    <TextBlock Text="Salvar CSV"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="txtCsvTo"/>
+                        <Button Grid.Column="1" Content="..." Width="30" Click="ChooseFile_Click"/>
+                    </Grid>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox>
+                <GroupBox.Header>
+                    <RadioButton Content="SQL Server" GroupName="raSend"/>
+                </GroupBox.Header>
+            </GroupBox>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Height="20" Width="150" Content="Exportar para CSV" Click="ExportToCsv_Click"/>
-            <Button Height="20" Width="150" Content="Teste" Click="ReadTxt_Click"/>
+            <Button Height="20" Width="250" Content="Gerar" Click="ExportToCsv_Click"/>
         </StackPanel>
     </Grid>
 </Window>

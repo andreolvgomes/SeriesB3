@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:SeriesB3.Styles">
+    <ResourceDictionary.MergedDictionaries>
+
+        <!--https://github.com/mesta1/Simple-wpf-styles-->
+        <ResourceDictionary Source="Shared.xaml" />
+        <ResourceDictionary Source="Button.xaml" />
+        <ResourceDictionary Source="CheckBox.xaml" />
+        <ResourceDictionary Source="RadioButton.xaml" />
+        <ResourceDictionary Source="ComboBox.xaml" />
+        <ResourceDictionary Source="ListBox.xaml" />
+        <ResourceDictionary Source="Menu.xaml" />
+        <ResourceDictionary Source="ScrollBar.xaml" />
+        <ResourceDictionary Source="Expander.xaml" />
+        <ResourceDictionary Source="GroupBox.xaml" />
+        <ResourceDictionary Source="Label.xaml" />
+        <ResourceDictionary Source="TabControl.xaml" />
+        <ResourceDictionary Source="ProgressBar.xaml" />
+        <ResourceDictionary Source="Slider.xaml" />
+        <ResourceDictionary Source="TextBox.xaml" />
+        <ResourceDictionary Source="ToolTip.xaml" />
+        <ResourceDictionary Source="TreeView.xaml" />
+        <ResourceDictionary Source="Frame.xaml" />
+        <ResourceDictionary Source="ListView.xaml" />
+        <ResourceDictionary Source="ScrollViewer.xaml" />
+        <ResourceDictionary Source="ToolBar.xaml" />
+        <ResourceDictionary Source="StatusBar.xaml" />
+        <!--<ResourceDictionary Source="DocumentViewer.xaml" />-->
+        <ResourceDictionary Source="Window.xaml" />
+        <ResourceDictionary Source="NavigationWindow.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>
