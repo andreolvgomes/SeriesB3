@@ -25,20 +25,18 @@ namespace SeriesB3
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Provider provider = null;
+
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = provider;
         }
 
         private void ReadTxt_Click(object sender, RoutedEventArgs e)
         {
             if (!this.ValidaText())
                 return;
-        }
-
-        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
-            System.Diagnostics.Process.Start("http://www.b3.com.br/pt_br/market-data-e-indices/servicos-de-dados/market-data/historico/mercado-a-vista/series-historicas/");
         }
 
         private void ChooseFile_Click(object sender, RoutedEventArgs e)
@@ -103,6 +101,11 @@ namespace SeriesB3
                 text.SelectAll();
             }));
             return false;
+        }
+
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.b3.com.br/pt_br/market-data-e-indices/servicos-de-dados/market-data/historico/mercado-a-vista/series-historicas/");
         }
     }
 }

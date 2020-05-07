@@ -29,5 +29,7 @@
         <!--<ResourceDictionary Source="DocumentViewer.xaml" />-->
         <ResourceDictionary Source="Window.xaml" />
         <ResourceDictionary Source="NavigationWindow.xaml" />
+        <ResourceDictionary Source="TextBlock.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
+    

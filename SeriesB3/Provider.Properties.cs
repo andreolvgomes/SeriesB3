@@ -1,26 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SeriesB3
 {
-    public class Provider : INotifyPropertyChanged
+    public partial class Provider
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string propertyName)
+        private string _fileB3;
+        /// <summary>
+        /// Path file b3
+        /// </summary>
+        public string FileB3
         {
-            if (PropertyChanged != null)
+            get { return _fileB3; }
+            set
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                if (_fileB3 != value)
+                {
+                    _fileB3 = value;
+                    this.OnPropertyChanged("FileB3");
+                }
             }
         }
 
         private ToTypes _toTypes;
-
+        /// <summary>
+        /// Export to
+        /// </summary>
         public ToTypes ToType
         {
             get { return _toTypes; }
@@ -32,10 +40,6 @@ namespace SeriesB3
                     this.OnPropertyChanged("ToType");
                 }
             }
-        }
-
-        public Provider()
-        {
         }
     }
 }

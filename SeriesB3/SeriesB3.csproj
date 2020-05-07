@@ -59,9 +59,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Enums\ToTypes.cs" />
+    <Compile Include="Extenders\RadioButtonEnum.cs" />
     <Compile Include="Extensions\DateTimes.cs" />
     <Compile Include="Extensions\Decimais.cs" />
     <Compile Include="Extensions\Strings.cs" />
+    <Compile Include="Provider.Properties.cs" />
+    <Compile Include="Provider.Methods.cs" />
     <Compile Include="ReadFile.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -168,6 +172,10 @@
     <Page Include="Styles\Tabcontrol.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\TextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Textbox.xaml">
       <Generator>MSBuild:Compile</Generator>

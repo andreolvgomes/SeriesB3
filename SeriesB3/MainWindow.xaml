@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:extenders="clr-namespace:SeriesB3.Extenders"
         Title="MainWindow" Height="450" Width="500" WindowStartupLocation="CenterScreen">
 
     <Grid Margin="10">
@@ -14,11 +15,7 @@
 
         <StackPanel>
             <TextBlock Text="Séries Históricas b3" FontSize="25" HorizontalAlignment="Center"/>
-            <TextBlock>
-            <Hyperlink NavigateUri="http://www.b3.com.br/pt_br/market-data-e-indices/servicos-de-dados/market-data/historico/mercado-a-vista/series-historicas/" RequestNavigate="Hyperlink_RequestNavigate">
-                Baixar
-            </Hyperlink>
-            </TextBlock>
+            <TextBlock Style="{StaticResource TextBlockLink}" Text="Baixa" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Margin="0,10,0,0">
@@ -29,15 +26,18 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBox x:Name="txtFile"/>
+                <TextBox x:Name="txtFile" Text="{Binding FileB3, UpdateSourceTrigger=PropertyChanged}"/>
                 <Button Grid.Column="1" Content="..." Width="30" Click="ChooseFile_Click"/>
             </Grid>
 
+            <TextBlock Text="Ativos"/>
+            <ComboBox/>
+
             <GroupBox Margin="0,2,0,0">
                 <GroupBox.Header>
-                    <RadioButton Content="CSV" GroupName="raSend"/>
+                    <extenders:RadioButtonEnum x:Name="rdToCsv" Content="CSV" GroupName="raSend" EnumBinding="ToType" EnumValue="ToCsv" IsChecked="True"/>
                 </GroupBox.Header>
-                <StackPanel>
+                <StackPanel IsEnabled="{Binding ElementName=rdToCsv, Path=IsChecked}">
                     <TextBlock Text="Delimitador"/>
                     <TextBox Text="," Width="50" HorizontalAlignment="Left"/>
 
@@ -56,7 +56,7 @@
 
             <GroupBox>
                 <GroupBox.Header>
-                    <RadioButton Content="SQL Server" GroupName="raSend"/>
+                    <extenders:RadioButtonEnum Content="SQL Server" GroupName="raSend" EnumBinding="ToType" EnumValue="ToSql"/>
                 </GroupBox.Header>
             </GroupBox>
         </StackPanel>

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\SeriesB3\SeriesB3\App.xaml
-291661328442
+30980531823
 
-15217776683
+16-1509536846
 16515138852
-MainWindow.xaml;Styles\Button.xaml;Styles\Checkbox.xaml;Styles\Combobox.xaml;Styles\Documentviewer.xaml;Styles\Expander.xaml;Styles\Frame.xaml;Styles\Groupbox.xaml;Styles\Label.xaml;Styles\Listbox.xaml;Styles\Listview.xaml;Styles\Menu.xaml;Styles\Navigationwindow.xaml;Styles\Progressbar.xaml;Styles\Radiobutton.xaml;Styles\Resizegrip.xaml;Styles\Scrollbar.xaml;Styles\Scrollviewer.xaml;Styles\Separator.xaml;Styles\Shared.xaml;Styles\Slider.xaml;Styles\Statusbar.xaml;Styles\StylesResource.xaml;Styles\Tabcontrol.xaml;Styles\Textbox.xaml;Styles\Toolbar.xaml;Styles\Tooltip.xaml;Styles\Treeview.xaml;Styles\Window.xaml;
+MainWindow.xaml;Styles\Button.xaml;Styles\Checkbox.xaml;Styles\Combobox.xaml;Styles\Documentviewer.xaml;Styles\Expander.xaml;Styles\Frame.xaml;Styles\Groupbox.xaml;Styles\Label.xaml;Styles\Listbox.xaml;Styles\Listview.xaml;Styles\Menu.xaml;Styles\Navigationwindow.xaml;Styles\Progressbar.xaml;Styles\Radiobutton.xaml;Styles\Resizegrip.xaml;Styles\Scrollbar.xaml;Styles\Scrollviewer.xaml;Styles\Separator.xaml;Styles\Shared.xaml;Styles\Slider.xaml;Styles\Statusbar.xaml;Styles\StylesResource.xaml;Styles\Tabcontrol.xaml;Styles\TextBlock.xaml;Styles\Textbox.xaml;Styles\Toolbar.xaml;Styles\Tooltip.xaml;Styles\Treeview.xaml;Styles\Window.xaml;
 
-False
+True
 

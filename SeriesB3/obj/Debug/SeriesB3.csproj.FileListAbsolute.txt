@@ -70,3 +70,5 @@ C:\SeriesB3\SeriesB3\obj\Debug\SeriesB3_MarkupCompile.lref
 C:\SeriesB3\SeriesB3\obj\Debug\Styles\Documentviewer.baml
 C:\SeriesB3\SeriesB3\obj\Debug\Styles\StylesResource.baml
 C:\SeriesB3\SeriesB3\obj\Debug\App.baml
+C:\SeriesB3\SeriesB3\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\SeriesB3\SeriesB3\obj\Debug\Styles\TextBlock.baml
