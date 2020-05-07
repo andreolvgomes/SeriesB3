@@ -1,0 +1,14 @@
+C:\Users\André\source\repos\ReadB3\ReadB3\bin\Debug\ReadB3.exe.config
+C:\Users\André\source\repos\ReadB3\ReadB3\bin\Debug\ReadB3.exe
+C:\Users\André\source\repos\ReadB3\ReadB3\bin\Debug\ReadB3.pdb
+C:\Users\André\source\repos\ReadB3\ReadB3\obj\Debug\ReadB3.csprojAssemblyReference.cache
+C:\Users\André\source\repos\ReadB3\ReadB3\obj\Debug\MainWindow.baml
+C:\Users\André\source\repos\ReadB3\ReadB3\obj\Debug\MainWindow.g.cs
+C:\Users\André\source\repos\ReadB3\ReadB3\obj\Debug\App.g.cs
+C:\Users\André\source\repos\ReadB3\ReadB3\obj\Debug\ReadB3_MarkupCompile.cache
+C:\Users\André\source\repos\ReadB3\ReadB3\obj\Debug\ReadB3.g.resources
+C:\Users\André\source\repos\ReadB3\ReadB3\obj\Debug\ReadB3.Properties.Resources.resources
+C:\Users\André\source\repos\ReadB3\ReadB3\obj\Debug\ReadB3.csproj.GenerateResource.cache
+C:\Users\André\source\repos\ReadB3\ReadB3\obj\Debug\ReadB3.csproj.CoreCompileInputs.cache
+C:\Users\André\source\repos\ReadB3\ReadB3\obj\Debug\ReadB3.exe
+C:\Users\André\source\repos\ReadB3\ReadB3\obj\Debug\ReadB3.pdb
