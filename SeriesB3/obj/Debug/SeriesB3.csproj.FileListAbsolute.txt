@@ -26,3 +26,17 @@ C:\Users\André\source\repos\SeriesB3\SeriesB3\obj\Debug\SeriesB3.csproj.Generat
 C:\Users\André\source\repos\SeriesB3\SeriesB3\obj\Debug\SeriesB3.csproj.CoreCompileInputs.cache
 C:\Users\André\source\repos\SeriesB3\SeriesB3\obj\Debug\SeriesB3.exe
 C:\Users\André\source\repos\SeriesB3\SeriesB3\obj\Debug\SeriesB3.pdb
+C:\SeriesB3\SeriesB3\bin\Debug\SeriesB3.exe.config
+C:\SeriesB3\SeriesB3\bin\Debug\SeriesB3.exe
+C:\SeriesB3\SeriesB3\bin\Debug\SeriesB3.pdb
+C:\SeriesB3\SeriesB3\obj\Debug\SeriesB3.csprojAssemblyReference.cache
+C:\SeriesB3\SeriesB3\obj\Debug\MainWindow.baml
+C:\SeriesB3\SeriesB3\obj\Debug\MainWindow.g.cs
+C:\SeriesB3\SeriesB3\obj\Debug\App.g.cs
+C:\SeriesB3\SeriesB3\obj\Debug\SeriesB3_MarkupCompile.cache
+C:\SeriesB3\SeriesB3\obj\Debug\SeriesB3.g.resources
+C:\SeriesB3\SeriesB3\obj\Debug\SeriesB3.Properties.Resources.resources
+C:\SeriesB3\SeriesB3\obj\Debug\SeriesB3.csproj.GenerateResource.cache
+C:\SeriesB3\SeriesB3\obj\Debug\SeriesB3.csproj.CoreCompileInputs.cache
+C:\SeriesB3\SeriesB3\obj\Debug\SeriesB3.exe
+C:\SeriesB3\SeriesB3\obj\Debug\SeriesB3.pdb

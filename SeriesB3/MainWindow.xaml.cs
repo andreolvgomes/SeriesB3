@@ -68,9 +68,9 @@ namespace SeriesB3
                             foreach (Infors inf in read.Series(this.txtFile.Text))
                             {
                                 if (counter == 0)
-                                    outputFile.WriteLine($"Ativo,Abertura,Open,Maxima,Minima,Fechamento");
+                                    outputFile.WriteLine($"Ativo,Data,Abertura,Maxima,Minima,Fechamento");
 
-                                outputFile.WriteLine($"{inf.Ativo},{inf.Data.ToString("dd/MM/yyyy")},{inf.Abertura.Point()},{inf.Maxima.Point()},{inf.Minima.Point()},{inf.Fechamento.Point()}");
+                                outputFile.WriteLine($@"{inf.Ativo},{inf.Data.ToString("dd/MM/yyyy")},{inf.Abertura.Point()},{inf.Maxima.Point()},{inf.Minima.Point()},{inf.Fechamento.Point()}");
                                 counter++;
                             }
                         }
