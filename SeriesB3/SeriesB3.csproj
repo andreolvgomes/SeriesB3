@@ -62,6 +62,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Enums\ToTypes.cs" />
     <Compile Include="Extenders\RadioButtonEnum.cs" />
     <Compile Include="Extensions\TextBoxs.cs" />

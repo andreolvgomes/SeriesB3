@@ -86,16 +86,30 @@ namespace SeriesB3
                 using (ReadFile read = new ReadFile())
                 {
                     using (Connection connection = new Connection(this.ConnectionString))
-                    {                        
-                        this.CreateTableIfNotExist(connection);
-                        this.TruncateTable(connection);
-                        string sql = $"insert into dbo.[{this.Table}] (Ativo, [Data], Abertura, Maxima, Minima, Fechamento, Empresa) values (@Ativo, @Data, @Abertura, @Maxima, @Minima, @Fechamento, @Empresa)";
+                    {
+                        List<string> tables = new List<string>();
+                        if (this.IsTableSeparated == false)
+                            this.DropTableCreateAgain(this.Table, connection);
 
+                        string sql = Sql(this.Table);
                         int counter = 0;
                         foreach (Infors inf in read.Series(this.FileB3))
                         {
-                            counter++;
+                            if (this.IsTableSeparated == true)
+                            {
+                                sql = Sql(inf.Ativo);
+                                if (tables.Contains(inf.Ativo) == false)
+                                {
+                                    this.DropTableCreateAgain(inf.Ativo, connection);
+                                    tables.Add(inf.Ativo);
+                                }
+                                else
+                                {
 
+                                }
+                            }
+
+                            counter++;
                             using (SqlCommand cmd = new SqlCommand())
                             {
                                 cmd.CommandText = sql;
@@ -121,34 +135,32 @@ namespace SeriesB3
             return false;
         }
 
-        /// <summary>
-        /// Truncate table, delete all records
-        /// </summary>
-        /// <param name="connection"></param>
-        private void TruncateTable(Connection connection)
+        private string Sql(string table)
         {
-            connection.Query($"truncate table dbo.[{this.Table}]");
-        }
+            string sql = $"insert into dbo.[{table}] (Ativo, [Data], Abertura, Maxima, Minima, Fechamento, Empresa) values (@Ativo, @Data, @Abertura, @Maxima, @Minima, @Fechamento, @Empresa)";
+            return sql;
+        }        
 
         /// <summary>
         /// Create table if not exists
         /// </summary>
         /// <param name="connection"></param>
-        private void CreateTableIfNotExist(Connection connection)
+        private void DropTableCreateAgain(string table, Connection connection)
         {
             string sql = $@"
-if object_id('{this.Table}') is null
-begin
-	create table {this.Table} (
-		Ativo varchar(50) default('') not null,	
-		[Data] datetime null,
-		Abertura decimal(10, 2) default(0) not null,
-		Maxima decimal(10, 2) default(0) not null,
-		Minima decimal(10, 2) default(0) not null,
-		Fechamento decimal(10, 2) default(0) not null,
-		Empresa varchar(50) default('') not null,	
-	)
-end";
+if object_id('{table}') is not null
+    drop table dbo.[{table}]
+
+create table {table} (
+	Ativo varchar(50) default('') not null,	
+	[Data] datetime null,
+	Abertura decimal(10, 2) default(0) not null,
+	Maxima decimal(10, 2) default(0) not null,
+	Minima decimal(10, 2) default(0) not null,
+	Fechamento decimal(10, 2) default(0) not null,
+	Empresa varchar(50) default('') not null,	
+)
+";
             connection.Query(sql);
         }
     }

@@ -9,6 +9,23 @@ namespace SeriesB3
 {
     public partial class Provider
     {
+        private bool _IsTableSeparated;
+        /// <summary>
+        /// Save data by table separated
+        /// </summary>
+        public bool IsTableSeparated
+        {
+            get { return _IsTableSeparated; }
+            set
+            {
+                if (_IsTableSeparated != value)
+                {
+                    _IsTableSeparated = value;
+                    this.OnPropertyChanged("IsTableSeparated");
+                }
+            }
+        }
+
         private string _Table = "Series";
         /// <summary>
         /// Table name

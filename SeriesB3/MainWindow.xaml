@@ -3,9 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:SeriesB3.Converters"
         xmlns:extenders="clr-namespace:SeriesB3.Extenders"
         Title="MainWindow" Height="450" Width="500" WindowStartupLocation="CenterScreen">
 
+    <Window.Resources>
+        <converters:BooleanToVisibilityConverterReverse x:Key="BooleanToVisibilityConverterReverse"/>
+    </Window.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -62,8 +66,10 @@
                 <StackPanel IsEnabled="{Binding ElementName=radSql, Path=IsChecked}">
                     <TextBlock Text="Connection String"/>
                     <TextBox Text="{Binding ConnectionString, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="Salvar em tabela separada pelo nome do ativo" IsChecked="{Binding IsTableSeparated, UpdateSourceTrigger=PropertyChanged}"
+                              Margin="5"/>
                     <TextBlock Text="Tabela"/>
-                    <TextBox x:Name="txtTable" Text="{Binding Table, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="txtTable" Text="{Binding Table, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsTableSeparated, Converter={StaticResource BooleanToVisibilityConverterReverse}}"/>
                 </StackPanel>
             </GroupBox>
         </StackPanel>

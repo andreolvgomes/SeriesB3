@@ -15,6 +15,7 @@ namespace SeriesB3
         /// <returns></returns>
         internal bool ValidTable()
         {
+            if (this.IsTableSeparated) return true;
             if (string.IsNullOrEmpty(this.Table))
                 return MessageBox.Show("Informe a Tabela onde salvar os dados!", "Atenção", MessageBoxButton.OK, MessageBoxImage.Warning) != MessageBoxResult.OK;
             return true;
