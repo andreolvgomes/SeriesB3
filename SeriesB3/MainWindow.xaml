@@ -35,7 +35,7 @@
 
             <GroupBox Margin="0,5,0,0">
                 <GroupBox.Header>
-                    <extenders:RadioButtonEnum x:Name="rdToCsv" Content="CSV" GroupName="raSend" EnumBinding="ToType" EnumValue="ToCsv" IsChecked="True"/>
+                    <extenders:RadioButtonEnum x:Name="rdToCsv" Content="CSV" GroupName="raSend" EnumBinding="{Binding ToType}" EnumValue="ToCsv" IsChecked="True"/>
                 </GroupBox.Header>
                 <StackPanel IsEnabled="{Binding ElementName=rdToCsv, Path=IsChecked}">
                     <!--<TextBlock Text="Delimitador"/>
@@ -56,13 +56,20 @@
 
             <GroupBox>
                 <GroupBox.Header>
-                    <extenders:RadioButtonEnum Content="SQL Server" GroupName="raSend" EnumBinding="ToType" EnumValue="ToSql"/>
+                    <extenders:RadioButtonEnum x:Name="radSql" Content="SQL Server" GroupName="raSend" EnumBinding="{Binding ToType}" EnumValue="ToSql"/>
                 </GroupBox.Header>
+
+                <StackPanel IsEnabled="{Binding ElementName=radSql, Path=IsChecked}">
+                    <TextBlock Text="Connection String"/>
+                    <TextBox Text="{Binding ConnectionString, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Text="Tabela"/>
+                    <TextBox x:Name="txtTable" Text="{Binding Table, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
             </GroupBox>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Height="20" Width="250" Content="Gerar" Click="ExportToCsv_Click"/>
+            <Button Height="20" Width="250" Content="Gerar" Click="Execute_Click"/>
         </StackPanel>
     </Grid>
 </Window>

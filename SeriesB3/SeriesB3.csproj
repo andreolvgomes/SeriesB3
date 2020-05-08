@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MicroReflection, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MicroReflection.1.0.0\lib\net45\MicroReflection.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -61,9 +64,12 @@
     </ApplicationDefinition>
     <Compile Include="Enums\ToTypes.cs" />
     <Compile Include="Extenders\RadioButtonEnum.cs" />
+    <Compile Include="Extensions\TextBoxs.cs" />
     <Compile Include="Extensions\DateTimes.cs" />
     <Compile Include="Extensions\Decimais.cs" />
     <Compile Include="Extensions\Strings.cs" />
+    <Compile Include="Helpers\Connection.cs" />
+    <Compile Include="Provider.Validations.cs" />
     <Compile Include="Provider.Properties.cs" />
     <Compile Include="Provider.Methods.cs" />
     <Compile Include="ReadFile.cs" />
@@ -216,6 +222,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

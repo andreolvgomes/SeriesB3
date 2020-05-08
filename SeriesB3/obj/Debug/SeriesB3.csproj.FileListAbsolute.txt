@@ -72,3 +72,5 @@ C:\SeriesB3\SeriesB3\obj\Debug\Styles\StylesResource.baml
 C:\SeriesB3\SeriesB3\obj\Debug\App.baml
 C:\SeriesB3\SeriesB3\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\SeriesB3\SeriesB3\obj\Debug\Styles\TextBlock.baml
+C:\SeriesB3\SeriesB3\bin\Debug\MicroReflection.dll
+C:\SeriesB3\SeriesB3\obj\Debug\SeriesB3.csproj.CopyComplete

@@ -9,6 +9,40 @@ namespace SeriesB3
 {
     public partial class Provider
     {
+        private string _Table = "Series";
+        /// <summary>
+        /// Table name
+        /// </summary>
+        public string Table
+        {
+            get { return _Table; }
+            set
+            {
+                if (_Table != value)
+                {
+                    _Table = value;
+                    this.OnPropertyChanged("Table");
+                }
+            }
+        }
+
+        private string _ConnectionString = @"Server=DESKTOP-S8UOP11\SQLEXPRESS;Database=bmf;Integrated Security=SSPI;";
+        /// <summary>
+        /// Connection String to connect in sql server
+        /// </summary>
+        public string ConnectionString
+        {
+            get { return _ConnectionString; }
+            set
+            {
+                if (_ConnectionString != value)
+                {
+                    _ConnectionString = value;
+                    this.OnPropertyChanged("ConnectionString");
+                }
+            }
+        }
+
         private string _FileCsv;
         /// <summary>
         /// File save csv
@@ -21,12 +55,12 @@ namespace SeriesB3
                 if (_FileCsv != value)
                 {
                     _FileCsv = value;
-                    this.OnPropertyChanged("_FileCsv");
+                    this.OnPropertyChanged("FileCsv");
                 }
             }
         }
 
-        private ObservableCollection<string> _ativos =  new ObservableCollection<string>();
+        private ObservableCollection<string> _ativos = new ObservableCollection<string>();
 
         public ObservableCollection<string> Ativos
         {

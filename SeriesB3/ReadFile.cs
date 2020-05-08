@@ -10,8 +10,10 @@ namespace SeriesB3
     /// <summary>
     /// read file txt b3
     /// </summary>
-    public class ReadFile
+    public class ReadFile : IDisposable
     {
+        private string codigoBDI = "02";//ações
+
         /// <summary>
         /// Readl file
         /// </summary>
@@ -33,14 +35,14 @@ namespace SeriesB3
                         continue;
 
                     //CODBDI - CÓDIGO BDI
-                    if (this.Str(ln, 2, 11) != "02")
+                    if (this.Str(ln, 2, 11) != codigoBDI)
                         continue;
 
                     Infors inf = new Infors();
                     //infors.Add(inf);
 
                     inf.Ativo = this.Str(ln, 12, 13);
-                    inf.NomeEmpresa = this.Str(ln, 12, 28);
+                    inf.Empresa = this.Str(ln, 12, 28);
                     inf.Data = this.Date(ln, 8, 3);
 
                     inf.Abertura = this.Value(ln, 11, 57);
@@ -71,7 +73,7 @@ namespace SeriesB3
                         continue;
 
                     //CODBDI - CÓDIGO BDI
-                    if (this.Str(ln, 2, 11) != "02")
+                    if (this.Str(ln, 2, 11) != codigoBDI)
                         continue;
 
                     string ativo = this.Str(ln, 12, 13);
@@ -133,6 +135,11 @@ namespace SeriesB3
             DateTime parsedDate = DateTime.ParseExact(value, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture);
             string formattedDate = parsedDate.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
             return Convert.ToDateTime(formattedDate);
+        }
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
         }
     }
 }

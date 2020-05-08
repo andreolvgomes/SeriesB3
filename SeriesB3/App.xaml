@@ -6,6 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <!--https://github.com/mesta1/Simple-wpf-styles-->
                 <ResourceDictionary Source="Styles/StylesResource.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

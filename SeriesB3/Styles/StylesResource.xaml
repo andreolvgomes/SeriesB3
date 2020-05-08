@@ -4,6 +4,7 @@
     <ResourceDictionary.MergedDictionaries>
 
         <!--https://github.com/mesta1/Simple-wpf-styles-->
+        
         <ResourceDictionary Source="Shared.xaml" />
         <ResourceDictionary Source="Button.xaml" />
         <ResourceDictionary Source="CheckBox.xaml" />

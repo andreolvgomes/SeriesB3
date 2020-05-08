@@ -47,6 +47,6 @@ namespace SeriesB3
         /// NOMRES - NOME RESUMIDO DA EMPRESA EMISSORA DO PAPEL
         /// X(12) 28 39
         /// </summary>
-        public string NomeEmpresa { get; set; }
+        public string Empresa { get; set; }
     }
 }

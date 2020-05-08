@@ -36,7 +36,7 @@ namespace SeriesB3
 
         private void ReadTxt_Click(object sender, RoutedEventArgs e)
         {
-            if (!this.ValidaText())
+            if (!this.CheckValidations())
                 return;
         }
 
@@ -52,27 +52,20 @@ namespace SeriesB3
             }
         }
 
-        private void ExportToCsv_Click(object sender, RoutedEventArgs e)
+        private void Execute_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (this.ValidaText())
+                if (this.CheckValidations())
                 {
-                    ReadFile read = new ReadFile();
-                    using (StreamWriter outputFile = new StreamWriter(this.provider.FileCsv))
-                    {
-                        int counter = 0;
-                        foreach (Infors inf in read.Series(this.txtFile.Text))
-                        {
-                            if (counter == 0)
-                                outputFile.WriteLine($"Ativo,Data,Abertura,Maxima,Minima,Fechamento");
+                    bool success = false;
+                    if (this.provider.ToType == ToTypes.ToCsv)
+                        success = this.provider.SaveCsv();
+                    else
+                        success = this.provider.SaveSql();
 
-                            outputFile.WriteLine($@"{inf.Ativo},{inf.Data.ToString("dd/MM/yyyy")},{inf.Abertura.Point()},{inf.Maxima.Point()},{inf.Minima.Point()},{inf.Fechamento.Point()}");
-                            counter++;
-                        }
-                    }
-
-                    MessageBox.Show("CSV gerado com sucesso!", "Atenção", MessageBoxButton.OK, MessageBoxImage.Information);
+                    if (success)
+                        MessageBox.Show("Executa com sucesso!", "Atenção", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
@@ -81,29 +74,47 @@ namespace SeriesB3
             }
         }
 
-        private bool ValidaText()
+        /// <summary>
+        /// Check validations
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckValidations()
         {
-            if (string.IsNullOrEmpty(this.txtFile.Text))
-            {
-                MessageBox.Show("Informe o arquivo!", "Atenção", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return this.SetFocus(this.txtFile);
-            }
-            if (string.IsNullOrEmpty(this.provider.FileCsv))
-            {
-                MessageBox.Show("Informe o caminho para salvar o Csv!", "Atenção", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return this.SetFocus(this.txtCsvTo);
-            }
+            if (!this.ValidDefault()) return false;
+            if (this.provider.ToType == ToTypes.ToCsv)
+                return this.ValidCsv();
+            return this.ValidSql();
+        }
+
+        /// <summary>
+        /// Check default settings
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidDefault()
+        {
+            if (!this.provider.ValidFileB3()) return this.txtFile.SetFocus();
             return true;
         }
 
-        public bool SetFocus(TextBox text)
+        /// <summary>
+        /// Check sql settings
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidSql()
         {
-            text.Dispatcher.BeginInvoke(new Action(() =>
-            {
-                text.Focus();
-                text.SelectAll();
-            }));
-            return false;
+            if (!this.provider.ValidConnectionString()) return this.txtCsvTo.SetFocus();
+            if (!this.provider.ValidTable()) return this.txtTable.SetFocus();
+            return true;
+        }
+
+        /// <summary>
+        /// Check Csv settings
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidCsv()
+        {
+            if (!this.provider.ValidFileCsv()) return this.txtCsvTo.SetFocus();
+            return true;
         }
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
