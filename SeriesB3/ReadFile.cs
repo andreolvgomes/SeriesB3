@@ -54,6 +54,33 @@ namespace SeriesB3
             }
         }
 
+        public IEnumerable<string> Ativos(string file)
+        {
+            using (StreamReader reader = new StreamReader(file))
+            {
+                string ln;
+                int counter = 0;
+
+                List<Infors> infors = new List<Infors>();
+                while ((ln = reader.ReadLine()) != null)
+                {
+                    counter++;
+
+                    // it's header, next
+                    if (counter == 1)
+                        continue;
+
+                    //CODBDI - CÓDIGO BDI
+                    if (this.Str(ln, 2, 11) != "02")
+                        continue;
+
+                    string ativo = this.Str(ln, 12, 13);
+                    // return line by line
+                    yield return ativo;
+                }
+            }
+        }
+
         /// <summary>
         /// Get value decimal/value
         /// </summary>

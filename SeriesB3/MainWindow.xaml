@@ -26,20 +26,20 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBox x:Name="txtFile" Text="{Binding FileB3, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox x:Name="txtFile" Text="{Binding FileB3, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                 <Button Grid.Column="1" Content="..." Width="30" Click="ChooseFile_Click"/>
             </Grid>
 
             <TextBlock Text="Ativos"/>
-            <ComboBox/>
+            <ComboBox ItemsSource="{Binding Ativos}" IsEditable="True"/>
 
-            <GroupBox Margin="0,2,0,0">
+            <GroupBox Margin="0,5,0,0">
                 <GroupBox.Header>
                     <extenders:RadioButtonEnum x:Name="rdToCsv" Content="CSV" GroupName="raSend" EnumBinding="ToType" EnumValue="ToCsv" IsChecked="True"/>
                 </GroupBox.Header>
                 <StackPanel IsEnabled="{Binding ElementName=rdToCsv, Path=IsChecked}">
-                    <TextBlock Text="Delimitador"/>
-                    <TextBox Text="," Width="50" HorizontalAlignment="Left"/>
+                    <!--<TextBlock Text="Delimitador"/>
+                    <TextBox Text="{Binding Delimiter, UpdateSourceTrigger=PropertyChanged}" Width="50" HorizontalAlignment="Left"/>-->
 
                     <TextBlock Text="Salvar CSV"/>
                     <Grid>
@@ -48,8 +48,8 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBox x:Name="txtCsvTo"/>
-                        <Button Grid.Column="1" Content="..." Width="30" Click="ChooseFile_Click"/>
+                        <TextBox x:Name="txtCsvTo" Text="{Binding FileCsv, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                        <Button Grid.Column="1" Content="..." Width="30" Click="SaveCsv_Click"/>
                     </Grid>
                 </StackPanel>
             </GroupBox>
