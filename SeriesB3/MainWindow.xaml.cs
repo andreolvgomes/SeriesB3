@@ -29,7 +29,7 @@ namespace SeriesB3
 
         public MainWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.provider = new Provider();
             this.DataContext = provider;
         }

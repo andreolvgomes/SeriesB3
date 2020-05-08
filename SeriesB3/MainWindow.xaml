@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converters="clr-namespace:SeriesB3.Converters"
         xmlns:extenders="clr-namespace:SeriesB3.Extenders"
-        Title="MainWindow" Height="450" Width="500" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="450" Width="500" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize"
+        >
 
     <Window.Resources>
         <converters:BooleanToVisibilityConverterReverse x:Key="BooleanToVisibilityConverterReverse"/>
