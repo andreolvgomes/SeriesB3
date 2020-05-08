@@ -89,23 +89,22 @@ namespace SeriesB3
                     {
                         List<string> tables = new List<string>();
                         if (this.IsTableSeparated == false)
-                            this.DropTableCreateAgain(this.Table, connection);
+                            this.CreateTable(this.Table, connection);
 
                         string sql = Sql(this.Table);
                         int counter = 0;
                         foreach (Infors inf in read.Series(this.FileB3))
                         {
+                            System.Windows.Forms.Application.DoEvents();
+
                             if (this.IsTableSeparated == true)
                             {
                                 sql = Sql(inf.Ativo);
-                                if (tables.Contains(inf.Ativo) == false)
-                                {
-                                    this.DropTableCreateAgain(inf.Ativo, connection);
-                                    tables.Add(inf.Ativo);
-                                }
-                                else
-                                {
 
+                                if (this.DropTable && tables.Contains(inf.Ativo) == false)
+                                {
+                                    this.CreateTable(inf.Ativo, connection);
+                                    tables.Add(inf.Ativo);
                                 }
                             }
 
@@ -135,31 +134,66 @@ namespace SeriesB3
             return false;
         }
 
+        /// <summary>
+        /// Drop all tables
+        /// </summary>
+        internal void ClearDatabase()
+        {
+            using (Connection connection = new Connection(this.ConnectionString))
+            {
+                string sql = @"declare @sql_trigger varchar(MAX) = '', @crlf_trigger varchar(2) = char(13) + char(10);
+select @sql_trigger = @sql_trigger + 'drop table dbo.' + quotename(v.name) +';' + @crlf_trigger from sys.tables v
+exec(@sql_trigger);";
+                connection.Query(sql);
+            }
+        }
+
         private string Sql(string table)
         {
-            string sql = $"insert into dbo.[{table}] (Ativo, [Data], Abertura, Maxima, Minima, Fechamento, Empresa) values (@Ativo, @Data, @Abertura, @Maxima, @Minima, @Fechamento, @Empresa)";
+            string sql = $@"
+if not exists (select Ativo from dbo.{table} where Ativo = @Ativo and [Data] = @Data)
+    insert into dbo.[{table}] (Ativo, [Data]) values (@Ativo, @Data)
+
+update dbo.{table} set
+Abertura = @Abertura,
+Maxima = @Maxima,
+Minima = @Minima,
+Fechamento = @Fechamento,
+Empresa = @Empresa
+where Ativo = @Ativo and [Data] = @Data";
+
+            // somente o insert o processo se torna bem mais rápido
+            if (this.DropTable)
+                sql = $@"insert into dbo.[{table}] (Ativo, [Data], Abertura, Maxima, Minima, Fechamento, Empresa) values (@Ativo, @Data, @Abertura, @Maxima, @Minima, @Fechamento, @Empresa)";
+
             return sql;
-        }        
+        }
 
         /// <summary>
         /// Create table if not exists
         /// </summary>
+        /// <param name="table"></param>
         /// <param name="connection"></param>
-        private void DropTableCreateAgain(string table, Connection connection)
+        private void CreateTable(string table, Connection connection)
         {
-            string sql = $@"
-if object_id('{table}') is not null
-    drop table dbo.[{table}]
+            if (this.DropTable)
+                connection.Query($"if object_id('{table}') is not null drop table dbo.[{table}]");
 
-create table {table} (
-	Ativo varchar(50) default('') not null,	
-	[Data] datetime null,
-	Abertura decimal(10, 2) default(0) not null,
-	Maxima decimal(10, 2) default(0) not null,
-	Minima decimal(10, 2) default(0) not null,
-	Fechamento decimal(10, 2) default(0) not null,
-	Empresa varchar(50) default('') not null,	
-)
+            string sql = $@"
+if object_id('{table}') is null
+begin
+    create table {table} (
+	    Ativo varchar(50) default('') not null,
+	    [Data] datetime not null,
+	    Abertura decimal(10, 2) default(0) not null,
+	    Maxima decimal(10, 2) default(0) not null,
+	    Minima decimal(10, 2) default(0) not null,
+	    Fechamento decimal(10, 2) default(0) not null,
+	    Empresa varchar(50) default('') not null,
+
+	    primary key (Ativo, [Data])
+    )
+end
 ";
             connection.Query(sql);
         }

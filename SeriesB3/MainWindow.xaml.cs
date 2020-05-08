@@ -58,6 +58,7 @@ namespace SeriesB3
             {
                 if (this.CheckValidations())
                 {
+                    this.provider.InProcessing = true;
                     bool success = false;
                     if (this.provider.ToType == ToTypes.ToCsv)
                         success = this.provider.SaveCsv();
@@ -71,6 +72,10 @@ namespace SeriesB3
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                this.provider.InProcessing = false;
             }
         }
 
@@ -129,6 +134,20 @@ namespace SeriesB3
             saveFileDialog.FileName = $"Series {DateTime.Now.ToString("ddMMyyyy HHmmss")}.csv";
             if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 this.provider.FileCsv = saveFileDialog.FileName;
+        }
+
+        private void ClearDatabase_Click(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (!this.provider.ValidConnectionString()) return;
+                this.provider.ClearDatabase();
+                MessageBox.Show("Processo concluído com sucesso!", "Atenção", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

@@ -38,8 +38,8 @@ namespace SeriesB3
         /// <returns></returns>
         internal bool ValidFileCsv()
         {
-            if (string.IsNullOrEmpty(this.FileB3))
-                return MessageBox.Show("Informe o caminho para salvar o Csv!", "Atenção", MessageBoxButton.OK, MessageBoxImage.Warning) != MessageBoxResult.OK;
+            if (string.IsNullOrEmpty(this.FileCsv))
+                return MessageBox.Show("Informe o caminho onde deseja salvar o Csv!", "Atenção", MessageBoxButton.OK, MessageBoxImage.Warning) != MessageBoxResult.OK;
             return true;
         }
 

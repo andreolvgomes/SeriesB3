@@ -9,6 +9,38 @@ namespace SeriesB3
 {
     public partial class Provider
     {
+        private bool _InProcessing;
+
+        public bool InProcessing
+        {
+            get { return _InProcessing; }
+            set
+            {
+                if (_InProcessing != value)
+                {
+                    _InProcessing = value;
+                    this.OnPropertyChanged("InProcessing");
+                }
+            }
+        }
+
+        private bool _DropTable;
+        /// <summary>
+        /// Clear all datas
+        /// </summary>
+        public bool DropTable
+        {
+            get { return _DropTable; }
+            set
+            {
+                if (_DropTable != value)
+                {
+                    _DropTable = value;
+                    this.OnPropertyChanged("DropTable");
+                }
+            }
+        }
+
         private bool _IsTableSeparated;
         /// <summary>
         /// Save data by table separated
