@@ -48,7 +48,7 @@ namespace SeriesB3
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 this.txtFile.Text = openFileDialog.FileName;
-                this.provider.LoadAtivos();
+                //this.provider.LoadAtivos();
             }
         }
 
@@ -61,7 +61,7 @@ namespace SeriesB3
                     this.provider.InProcessing = true;
                     bool success = false;
                     if (this.provider.ToType == ToTypes.ToCsv)
-                        success = this.provider.SaveCsv();
+                        success = this.SaveCsv();
                     else
                         success = this.provider.SaveSql();
 
@@ -77,6 +77,20 @@ namespace SeriesB3
             {
                 this.provider.InProcessing = false;
             }
+        }
+
+        private bool SaveCsv()
+        {
+            System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            saveFileDialog.Filter = "CSV file (*.csv)|*.csv";
+            saveFileDialog.FileName = $"Series {DateTime.Now.ToString("ddMMyyyy HHmmss")}.csv";
+
+            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                this.provider.FileCsv = saveFileDialog.FileName;
+                return this.provider.SaveCsv();
+            }
+            return false;
         }
 
         /// <summary>
@@ -107,7 +121,7 @@ namespace SeriesB3
         /// <returns></returns>
         private bool ValidSql()
         {
-            if (!this.provider.ValidConnectionString()) return this.txtCsvTo.SetFocus();
+            if (!this.provider.ValidConnectionString()) return this.txtConnectionString.SetFocus();
             if (!this.provider.ValidTable()) return this.txtTable.SetFocus();
             return true;
         }
@@ -118,7 +132,7 @@ namespace SeriesB3
         /// <returns></returns>
         private bool ValidCsv()
         {
-            if (!this.provider.ValidFileCsv()) return this.txtCsvTo.SetFocus();
+            //if (!this.provider.ValidFileCsv()) return this.txtCsvTo.SetFocus();
             return true;
         }
 

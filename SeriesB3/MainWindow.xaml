@@ -48,8 +48,8 @@
                     <Button Grid.Column="1" Content="..." Width="30" Click="ChooseFile_Click"/>
                 </Grid>
 
-                <TextBlock Text="Ativos"/>
-                <ComboBox ItemsSource="{Binding Ativos}" IsEditable="True" ToolTip="Lista dos ativos"/>
+                <!--<TextBlock Text="Ativos"/>
+                <ComboBox ItemsSource="{Binding Ativos}" IsEditable="True" ToolTip="Lista dos ativos"/>-->
 
                 <GroupBox Margin="0,5,0,0">
                     <GroupBox.Header>
@@ -59,7 +59,7 @@
                         <!--<TextBlock Text="Delimitador"/>
                     <TextBox Text="{Binding Delimiter, UpdateSourceTrigger=PropertyChanged}" Width="50" HorizontalAlignment="Left"/>-->
 
-                        <TextBlock Text="Salvar CSV"/>
+                        <!--<TextBlock Text="Salvar CSV"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -68,7 +68,7 @@
 
                             <TextBox x:Name="txtCsvTo" Text="{Binding FileCsv, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" ToolTip="Caminho onde deseja salvar o CSV"/>
                             <Button Grid.Column="1" Content="..." Width="30" Click="SaveCsv_Click"/>
-                        </Grid>
+                        </Grid>-->
                     </StackPanel>
                 </GroupBox>
 
@@ -86,7 +86,7 @@
                             <TextBlock Text="Connection String"/>
                             <TextBlock Text="Limpar banco de dados" Grid.Column="1" Style="{StaticResource TextBlockLink}" ToolTip="Deleta todas as tabelas do banco de dados" MouseLeftButtonDown="ClearDatabase_Click"/>
                         </Grid>
-                        <TextBox Text="{Binding ConnectionString, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="txtConnectionString" Text="{Binding ConnectionString, UpdateSourceTrigger=PropertyChanged}"/>
                         <CheckBox Content="Limpa tabela antes de salvar os dados" Margin="0,5,0,0" IsChecked="{Binding DropTable}" ToolTip="Exclui todos os dados existentes antes de salvar os novos"/>
                         <CheckBox Content="Salvar em tabela separada pelo nome do ativo" IsChecked="{Binding IsTableSeparated, UpdateSourceTrigger=PropertyChanged}"
                               Margin="0,5"  ToolTip="Cria uma tabela para cada ativo e salva os dados separadamente em cada tabela"/>
