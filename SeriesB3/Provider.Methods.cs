@@ -56,7 +56,6 @@ namespace SeriesB3
                         System.IO.Directory.CreateDirectory(folder);
 
                     List<string> ativos = new List<string>();
-                    int counter = 0;
 
                     foreach (Infors inf in read.Series(this.FileB3))
                     {
@@ -76,8 +75,6 @@ namespace SeriesB3
 
                             List<string> data = this.GetLine(inf);
                             outputFile.WriteLine(string.Join(",", data));
-
-                            counter++;
                         }
                     }
                     // return true if file exists
@@ -100,23 +97,18 @@ namespace SeriesB3
             {
                 using (ReadFile read = new ReadFile())
                 {
-                    int counter = 0;
-
                     using (StreamWriter outputFile = new StreamWriter(this.FileCsv))
                     {
+                        outputFile.WriteLine(string.Join(",", this.Header));
+
                         foreach (Infors inf in read.Series(this.FileB3))
                         {
                             System.Windows.Forms.Application.DoEvents();
                             if (!this.CheckFiltersAtivs(inf.Ativo))
                                 continue;
 
-                            if (counter == 0)
-                                outputFile.WriteLine(string.Join(",", this.Header));
-
                             List<string> data = this.GetLine(inf);
                             outputFile.WriteLine(string.Join(",", data));
-
-                            counter++;
                         }
                     }
                     // return true if file exists
@@ -159,7 +151,6 @@ namespace SeriesB3
                             this.CreateTable(this.Table, connection);
 
                         string sql = Sql(this.Table);
-                        int counter = 0;
                         foreach (Infors inf in read.Series(this.FileB3))
                         {
                             System.Windows.Forms.Application.DoEvents();
@@ -177,7 +168,6 @@ namespace SeriesB3
                                 }
                             }
 
-                            counter++;
                             using (SqlCommand cmd = new SqlCommand())
                             {
                                 cmd.CommandText = sql;
@@ -203,6 +193,11 @@ namespace SeriesB3
             return false;
         }
 
+        /// <summary>
+        /// Check if ativ to be in the filter
+        /// </summary>
+        /// <param name="ativo"></param>
+        /// <returns></returns>
         private bool CheckFiltersAtivs(string ativo)
         {
             if (this.ByAtivo == false) return true;
