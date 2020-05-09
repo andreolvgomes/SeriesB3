@@ -48,7 +48,7 @@ namespace SeriesB3
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 this.txtFile.Text = openFileDialog.FileName;
-                //this.provider.LoadAtivos();
+                this.provider.LoadAtivos();
             }
         }
 
@@ -81,14 +81,26 @@ namespace SeriesB3
 
         private bool SaveCsv()
         {
-            System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            saveFileDialog.Filter = "CSV file (*.csv)|*.csv";
-            saveFileDialog.FileName = $"Series {DateTime.Now.ToString("ddMMyyyy HHmmss")}.csv";
-
-            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (this.provider.CsvSeparated)
             {
-                this.provider.FileCsv = saveFileDialog.FileName;
-                return this.provider.SaveCsv();
+                System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+                if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    this.provider.FileCsv = folderBrowserDialog1.SelectedPath;
+                    return this.provider.SaveCsvSapareted();
+                }
+            }
+            else
+            {
+                System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+                saveFileDialog.Filter = "CSV file (*.csv)|*.csv";
+                saveFileDialog.FileName = $"Series {DateTime.Now.ToString("ddMMyyyy HHmmss")}.csv";
+
+                if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    this.provider.FileCsv = saveFileDialog.FileName;
+                    return this.provider.SaveCsv();
+                }
             }
             return false;
         }
@@ -112,6 +124,7 @@ namespace SeriesB3
         private bool ValidDefault()
         {
             if (!this.provider.ValidFileB3()) return this.txtFile.SetFocus();
+            if (!this.provider.ValidFilterAtiv()) return this.txtAtivs.SetFocus();
             return true;
         }
 

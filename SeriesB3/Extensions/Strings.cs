@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SeriesB3.Extensions
+namespace System
 {
-    public class Strings
+    public static class Strings
     {
+        public static bool NullOrEmpty(this string str)
+        {
+            return string.IsNullOrEmpty(str);
+        }
     }
 }

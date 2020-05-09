@@ -29,18 +29,65 @@ namespace SeriesB3
         {
             Task.Run(new Action(() =>
             {
-                ReadFile read = new ReadFile();
-                foreach (string ativo in read.Ativos(this.FileB3))
+                using (ReadFile read = new ReadFile())
                 {
-                    if (Ativos.Contains(ativo))
-                        continue;
-
-                    System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate // <--- HERE
+                    List<string> list = new List<string>();
+                    foreach (string ativo in read.Ativos(this.FileB3))
                     {
-                        Ativos.Add(ativo);
-                    });
+                        if (list.Contains(ativo))
+                            continue;
+                        list.Add(ativo);
+                    }
+                    this.FilterAtivos = string.Join(";", list);
                 }
             }));
+        }
+
+        private List<string> Header = new List<string>() { "Ativo", "Data", "Abertura", "Maxima", "Minima", "Fechamento", "Empresa" };
+
+        internal bool SaveCsvSapareted()
+        {
+            try
+            {
+                using (ReadFile read = new ReadFile())
+                {
+                    string folder = System.IO.Path.Combine(this.FileCsv, "CSVb3_" + DateTime.Now.ToString("HHmmss"));
+                    if (System.IO.Directory.Exists(folder) == false)
+                        System.IO.Directory.CreateDirectory(folder);
+
+                    List<string> ativos = new List<string>();
+                    int counter = 0;
+
+                    foreach (Infors inf in read.Series(this.FileB3))
+                    {
+                        System.Windows.Forms.Application.DoEvents();
+                        if (!this.CheckFiltersAtivs(inf.Ativo))
+                            continue;
+
+                        string file = System.IO.Path.Combine(folder, inf.Ativo + ".csv");
+
+                        using (StreamWriter outputFile = new StreamWriter(file, true))
+                        {
+                            if (ativos.Contains(inf.Ativo) == false)
+                            {
+                                outputFile.WriteLine(string.Join(",", this.Header));
+                                ativos.Add(inf.Ativo);
+                            }
+
+                            List<string> data = this.GetLine(inf);
+                            outputFile.WriteLine(string.Join(",", data));
+
+                            counter++;
+                        }
+                    }
+                    // return true if file exists
+                    return System.IO.Directory.Exists(folder);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         /// <summary>
@@ -53,15 +100,22 @@ namespace SeriesB3
             {
                 using (ReadFile read = new ReadFile())
                 {
+                    int counter = 0;
+
                     using (StreamWriter outputFile = new StreamWriter(this.FileCsv))
                     {
-                        int counter = 0;
                         foreach (Infors inf in read.Series(this.FileB3))
                         {
-                            if (counter == 0)
-                                outputFile.WriteLine($"Ativo,Data,Abertura,Maxima,Minima,Fechamento");
+                            System.Windows.Forms.Application.DoEvents();
+                            if (!this.CheckFiltersAtivs(inf.Ativo))
+                                continue;
 
-                            outputFile.WriteLine($@"{inf.Ativo},{inf.Data.ToString("dd/MM/yyyy")},{inf.Abertura.Point()},{inf.Maxima.Point()},{inf.Minima.Point()},{inf.Fechamento.Point()}");
+                            if (counter == 0)
+                                outputFile.WriteLine(string.Join(",", this.Header));
+
+                            List<string> data = this.GetLine(inf);
+                            outputFile.WriteLine(string.Join(",", data));
+
                             counter++;
                         }
                     }
@@ -73,6 +127,19 @@ namespace SeriesB3
             {
                 throw;
             }
+        }
+
+        private List<string> GetLine(Infors inf)
+        {
+            List<string> data = new List<string>();
+            data.Add(inf.Ativo);
+            data.Add(inf.Data.ToString("dd/MM/yyyy"));
+            data.Add(inf.Abertura.Point());
+            data.Add(inf.Maxima.Point());
+            data.Add(inf.Minima.Point());
+            data.Add(inf.Fechamento.Point());
+            data.Add(inf.Empresa);
+            return data;
         }
 
         /// <summary>
@@ -96,6 +163,8 @@ namespace SeriesB3
                         foreach (Infors inf in read.Series(this.FileB3))
                         {
                             System.Windows.Forms.Application.DoEvents();
+                            if (!this.CheckFiltersAtivs(inf.Ativo))
+                                continue;
 
                             if (this.IsTableSeparated == true)
                             {
@@ -132,6 +201,19 @@ namespace SeriesB3
                 throw;
             }
             return false;
+        }
+
+        private bool CheckFiltersAtivs(string ativo)
+        {
+            if (this.ByAtivo == false) return true;
+            // se não tiver no filtro, então parte p/ próximo
+            //List<string> filters = new List<string>();
+
+            if (this.FilterAtivos.NullOrEmpty()) return true;
+
+            //filters = this.FilterAtivos.ToUpper().Split(';').ToList();
+            //return filters.Contains(ativo);
+            return this.FilterAtivos.Contains(ativo);
         }
 
         /// <summary>

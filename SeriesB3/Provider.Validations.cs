@@ -22,6 +22,18 @@ namespace SeriesB3
         }
 
         /// <summary>
+        /// Check filters
+        /// </summary>
+        /// <returns></returns>
+        internal bool ValidFilterAtiv()
+        {
+            if (this.ByAtivo == false) return true;
+            if (this.FilterAtivos.NullOrEmpty())
+                return MessageBox.Show("Informe os Ativos que deseja filtrar!", "Atenção", MessageBoxButton.OK, MessageBoxImage.Warning) != MessageBoxResult.OK;
+            return true;
+        }
+
+        /// <summary>
         /// Check the file path B3
         /// </summary>
         /// <returns></returns>

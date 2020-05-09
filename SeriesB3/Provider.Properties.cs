@@ -9,6 +9,57 @@ namespace SeriesB3
 {
     public partial class Provider
     {
+        private bool _CsvSeparated;
+        /// <summary>
+        /// Csv separated
+        /// </summary>
+        public bool CsvSeparated
+        {
+            get { return _CsvSeparated; }
+            set
+            {
+                if (_CsvSeparated != value)
+                {
+                    _CsvSeparated = value;
+                    this.OnPropertyChanged("CsvSeparated");
+                }
+            }
+        }
+
+        private string _FilterAtivos;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FilterAtivos
+        {
+            get { return _FilterAtivos; }
+            set
+            {
+                if (_FilterAtivos != value)
+                {
+                    _FilterAtivos = value;
+                    this.OnPropertyChanged("FilterAtivos");
+                }
+            }
+        }
+
+        private bool _ByAtivo;
+        /// <summary>
+        /// Extract only by ativos 
+        /// </summary>
+        public bool ByAtivo
+        {
+            get { return _ByAtivo; }
+            set
+            {
+                if (_ByAtivo != value)
+                {
+                    _ByAtivo = value;
+                    this.OnPropertyChanged("ByAtivo");
+                }
+            }
+        }
+
         private bool _InProcessing;
 
         public bool InProcessing
@@ -105,21 +156,6 @@ namespace SeriesB3
                 {
                     _FileCsv = value;
                     this.OnPropertyChanged("FileCsv");
-                }
-            }
-        }
-
-        private ObservableCollection<string> _ativos = new ObservableCollection<string>();
-
-        public ObservableCollection<string> Ativos
-        {
-            get { return _ativos; }
-            set
-            {
-                if (_ativos != value)
-                {
-                    _ativos = value;
-                    this.OnPropertyChanged("Ativos");
                 }
             }
         }
