@@ -47,16 +47,16 @@
                     <Button Grid.Column="1" Content="..." Width="30" Click="ChooseFile_Click"/>
                 </Grid>
 
-                <CheckBox Content="Filtrar Ativos" ToolTip="Marque está opção para extrair dados somente dos Ativos específicos" IsChecked="{Binding ByAtivo}"/>
-                <TextBox x:Name="txtAtivs" Height="50" TextWrapping="Wrap" CharacterCasing="Upper" IsEnabled="{Binding ByAtivo}" ToolTip="Informe o código dos Ativos delimitador por ';' que deseja filtrar"
-                         Text="{Binding FilterAtivos, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"/>
+                <CheckBox Content="Filtrar por Código de Negociação" ToolTip="Marque está opção para extrair dados somente dos Código de Negociação informado" IsChecked="{Binding ByCodneg}"/>
+                <TextBox x:Name="txtAtivs" Height="50" TextWrapping="Wrap" CharacterCasing="Upper" IsEnabled="{Binding ByCodneg}" ToolTip="Informe o Código de Negociação delimitador por ';' que deseja filtrar"
+                         Text="{Binding FilterCodneg, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"/>
 
                 <GroupBox Margin="0,5,0,0">
                     <GroupBox.Header>
                         <extenders:RadioButtonEnum x:Name="rdToCsv" Content="CSV" GroupName="raSend" EnumBinding="{Binding ToType}" EnumValue="ToCsv" IsChecked="True"/>
                     </GroupBox.Header>
                     <StackPanel IsEnabled="{Binding ElementName=rdToCsv, Path=IsChecked}">
-                        <CheckBox Content="Gerar CSV separado para cada ativo" IsChecked="{Binding CsvSeparated}"/>
+                        <CheckBox Content="Gerar CSV separado para cada Código de Negocaição" IsChecked="{Binding CsvSeparated}"/>
                     </StackPanel>
                 </GroupBox>
 
@@ -76,8 +76,8 @@
                         </Grid>
                         <TextBox x:Name="txtConnectionString" Text="{Binding ConnectionString, UpdateSourceTrigger=PropertyChanged}"/>
                         <CheckBox Content="Limpa tabela antes de salvar os dados" Margin="0,5,0,0" IsChecked="{Binding DropTable}" ToolTip="Exclui todos os dados existentes antes de salvar os novos"/>
-                        <CheckBox Content="Salvar em tabela separada para cada ativo" IsChecked="{Binding IsTableSeparated, UpdateSourceTrigger=PropertyChanged}"
-                              Margin="0,5"  ToolTip="Cria uma tabela para cada ativo e salva os dados separadamente em cada tabela"/>
+                        <CheckBox Content="Salvar em tabela separada para cada Código de Negociação" IsChecked="{Binding IsTableSeparated, UpdateSourceTrigger=PropertyChanged}"
+                              Margin="0,5"  ToolTip="Cria uma tabela para cada Código de Negociação e salva os dados separadamente em cada tabela"/>
                         <TextBlock Text="Tabela"/>
                         <TextBox x:Name="txtTable" Text="{Binding Table, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsTableSeparated, Converter={StaticResource BooleanToVisibilityConverterReverse}}"
                              ToolTip="Nome da tabela onde será salvo todos os registros"/>

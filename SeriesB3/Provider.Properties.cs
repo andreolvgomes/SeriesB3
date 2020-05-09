@@ -26,36 +26,36 @@ namespace SeriesB3
             }
         }
 
-        private string _FilterAtivos;
+        private string _filterCodneg;
         /// <summary>
         /// 
         /// </summary>
-        public string FilterAtivos
+        public string FilterCodneg
         {
-            get { return _FilterAtivos; }
+            get { return _filterCodneg; }
             set
             {
-                if (_FilterAtivos != value)
+                if (_filterCodneg != value)
                 {
-                    _FilterAtivos = value;
-                    this.OnPropertyChanged("FilterAtivos");
+                    _filterCodneg = value;
+                    this.OnPropertyChanged("FilterCodneg");
                 }
             }
         }
 
-        private bool _ByAtivo;
+        private bool _byCodneg;
         /// <summary>
-        /// Extract only by ativos 
+        /// Extract only by codneg 
         /// </summary>
-        public bool ByAtivo
+        public bool ByCodneg
         {
-            get { return _ByAtivo; }
+            get { return _byCodneg; }
             set
             {
-                if (_ByAtivo != value)
+                if (_byCodneg != value)
                 {
-                    _ByAtivo = value;
-                    this.OnPropertyChanged("ByAtivo");
+                    _byCodneg = value;
+                    this.OnPropertyChanged("ByCodneg");
                 }
             }
         }

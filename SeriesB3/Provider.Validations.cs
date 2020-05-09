@@ -27,9 +27,9 @@ namespace SeriesB3
         /// <returns></returns>
         internal bool ValidFilterAtiv()
         {
-            if (this.ByAtivo == false) return true;
-            if (this.FilterAtivos.NullOrEmpty())
-                return MessageBox.Show("Informe os Ativos que deseja filtrar!", "Atenção", MessageBoxButton.OK, MessageBoxImage.Warning) != MessageBoxResult.OK;
+            if (this.ByCodneg == false) return true;
+            if (this.FilterCodneg.NullOrEmpty())
+                return MessageBox.Show("Informe os Códigos de Negociação que deseja filtrar!", "Atenção", MessageBoxButton.OK, MessageBoxImage.Warning) != MessageBoxResult.OK;
             return true;
         }
 

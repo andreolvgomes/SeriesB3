@@ -48,7 +48,7 @@ namespace SeriesB3
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 this.txtFile.Text = openFileDialog.FileName;
-                this.provider.LoadAtivos();
+                this.provider.LoadCodigosNeg();
             }
         }
 

@@ -41,7 +41,7 @@ namespace SeriesB3
                     Infors inf = new Infors();
                     //infors.Add(inf);
 
-                    inf.Ativo = this.Str(ln, 12, 13);
+                    inf.Codneg = this.Str(ln, 12, 13);
                     inf.Empresa = this.Str(ln, 12, 28);
                     inf.Data = this.Date(ln, 8, 3);
 
@@ -56,7 +56,7 @@ namespace SeriesB3
             }
         }
 
-        public IEnumerable<string> Ativos(string file)
+        public IEnumerable<string> CodNeg(string file)
         {
             using (StreamReader reader = new StreamReader(file))
             {
@@ -76,9 +76,9 @@ namespace SeriesB3
                     if (this.Str(ln, 2, 11) != codigoBDI)
                         continue;
 
-                    string ativo = this.Str(ln, 12, 13);
+                    string codneg = this.Str(ln, 12, 13);
                     // return line by line
-                    yield return ativo;
+                    yield return codneg;
                 }
             }
         }

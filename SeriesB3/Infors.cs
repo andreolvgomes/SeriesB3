@@ -11,14 +11,14 @@ namespace SeriesB3
     {        
         public override string ToString()
         {
-            return $"{this.Ativo} - {Data}: Open {this.Abertura} High: {this.Maxima} Low: {this.Minima} Close: {this.Fechamento}";
+            return $"{this.Codneg} - {Data}: Open {this.Abertura} High: {this.Maxima} Low: {this.Minima} Close: {this.Fechamento}";
         }
 
         /// <summary>
         /// CODNEG - CÓDIGO DE NEGOCIAÇÃO DO PAPEL
         /// X(12) 13 24
         /// </summary>
-        public string Ativo { get; set; }
+        public string Codneg { get; set; }
         /// <summary>
         /// DATA DO PREGÃO
         /// N(08) 03 10

@@ -25,25 +25,25 @@ namespace SeriesB3
         {
         }
 
-        internal void LoadAtivos()
+        internal void LoadCodigosNeg()
         {
             Task.Run(new Action(() =>
             {
                 using (ReadFile read = new ReadFile())
                 {
                     List<string> list = new List<string>();
-                    foreach (string ativo in read.Ativos(this.FileB3))
+                    foreach (string codneg in read.CodNeg(this.FileB3))
                     {
-                        if (list.Contains(ativo))
+                        if (list.Contains(codneg))
                             continue;
-                        list.Add(ativo);
+                        list.Add(codneg);
                     }
-                    this.FilterAtivos = string.Join(";", list);
+                    this.FilterCodneg = string.Join(";", list);
                 }
             }));
         }
 
-        private List<string> Header = new List<string>() { "Ativo", "Data", "Abertura", "Maxima", "Minima", "Fechamento", "Empresa" };
+        private List<string> Header = new List<string>() { "Codneg", "Data", "Abertura", "Maxima", "Minima", "Fechamento", "Empresa" };
 
         internal bool SaveCsvSapareted()
         {
@@ -55,22 +55,22 @@ namespace SeriesB3
                     if (System.IO.Directory.Exists(folder) == false)
                         System.IO.Directory.CreateDirectory(folder);
 
-                    List<string> ativos = new List<string>();
+                    List<string> exists = new List<string>();
 
                     foreach (Infors inf in read.Series(this.FileB3))
                     {
                         System.Windows.Forms.Application.DoEvents();
-                        if (!this.CheckFiltersAtivs(inf.Ativo))
+                        if (!this.CheckCodneg(inf.Codneg))
                             continue;
 
-                        string file = System.IO.Path.Combine(folder, inf.Ativo + ".csv");
+                        string file = System.IO.Path.Combine(folder, inf.Codneg + ".csv");
 
                         using (StreamWriter outputFile = new StreamWriter(file, true))
                         {
-                            if (ativos.Contains(inf.Ativo) == false)
+                            if (exists.Contains(inf.Codneg) == false)
                             {
                                 outputFile.WriteLine(string.Join(",", this.Header));
-                                ativos.Add(inf.Ativo);
+                                exists.Add(inf.Codneg);
                             }
 
                             List<string> data = this.GetLine(inf);
@@ -104,7 +104,7 @@ namespace SeriesB3
                         foreach (Infors inf in read.Series(this.FileB3))
                         {
                             System.Windows.Forms.Application.DoEvents();
-                            if (!this.CheckFiltersAtivs(inf.Ativo))
+                            if (!this.CheckCodneg(inf.Codneg))
                                 continue;
 
                             List<string> data = this.GetLine(inf);
@@ -124,7 +124,7 @@ namespace SeriesB3
         private List<string> GetLine(Infors inf)
         {
             List<string> data = new List<string>();
-            data.Add(inf.Ativo);
+            data.Add(inf.Codneg);
             data.Add(inf.Data.ToString("dd/MM/yyyy"));
             data.Add(inf.Abertura.Point());
             data.Add(inf.Maxima.Point());
@@ -154,24 +154,24 @@ namespace SeriesB3
                         foreach (Infors inf in read.Series(this.FileB3))
                         {
                             System.Windows.Forms.Application.DoEvents();
-                            if (!this.CheckFiltersAtivs(inf.Ativo))
+                            if (!this.CheckCodneg(inf.Codneg))
                                 continue;
 
                             if (this.IsTableSeparated == true)
                             {
-                                sql = Sql(inf.Ativo);
+                                sql = Sql(inf.Codneg);
 
-                                if (this.DropTable && tables.Contains(inf.Ativo) == false)
+                                if (this.DropTable && tables.Contains(inf.Codneg) == false)
                                 {
-                                    this.CreateTable(inf.Ativo, connection);
-                                    tables.Add(inf.Ativo);
+                                    this.CreateTable(inf.Codneg, connection);
+                                    tables.Add(inf.Codneg);
                                 }
                             }
 
                             using (SqlCommand cmd = new SqlCommand())
                             {
                                 cmd.CommandText = sql;
-                                cmd.Parameters.AddWithValue("@Ativo", inf.Ativo);
+                                cmd.Parameters.AddWithValue("@Codneg", inf.Codneg);
                                 cmd.Parameters.AddWithValue("@Data", inf.Data);
                                 cmd.Parameters.AddWithValue("@Abertura", inf.Abertura);
                                 cmd.Parameters.AddWithValue("@Maxima", inf.Maxima);
@@ -196,19 +196,14 @@ namespace SeriesB3
         /// <summary>
         /// Check if ativ to be in the filter
         /// </summary>
-        /// <param name="ativo"></param>
+        /// <param name="codneg"></param>
         /// <returns></returns>
-        private bool CheckFiltersAtivs(string ativo)
+        private bool CheckCodneg(string codneg)
         {
-            if (this.ByAtivo == false) return true;
+            if (this.ByCodneg == false) return true;
             // se não tiver no filtro, então parte p/ próximo
-            //List<string> filters = new List<string>();
-
-            if (this.FilterAtivos.NullOrEmpty()) return true;
-
-            //filters = this.FilterAtivos.ToUpper().Split(';').ToList();
-            //return filters.Contains(ativo);
-            return this.FilterAtivos.Contains(ativo);
+            if (this.FilterCodneg.NullOrEmpty()) return true;
+            return this.FilterCodneg.Contains(codneg);
         }
 
         /// <summary>
@@ -228,8 +223,8 @@ exec(@sql_trigger);";
         private string Sql(string table)
         {
             string sql = $@"
-if not exists (select Ativo from dbo.{table} where Ativo = @Ativo and [Data] = @Data)
-    insert into dbo.[{table}] (Ativo, [Data]) values (@Ativo, @Data)
+if not exists (select Codneg from dbo.{table} where Codneg = @Codneg and [Data] = @Data)
+    insert into dbo.[{table}] (Codneg, [Data]) values (@Codneg, @Data)
 
 update dbo.{table} set
 Abertura = @Abertura,
@@ -237,11 +232,11 @@ Maxima = @Maxima,
 Minima = @Minima,
 Fechamento = @Fechamento,
 Empresa = @Empresa
-where Ativo = @Ativo and [Data] = @Data";
+where Codneg = @Codneg and [Data] = @Data";
 
             // somente o insert o processo se torna bem mais rápido
             if (this.DropTable)
-                sql = $@"insert into dbo.[{table}] (Ativo, [Data], Abertura, Maxima, Minima, Fechamento, Empresa) values (@Ativo, @Data, @Abertura, @Maxima, @Minima, @Fechamento, @Empresa)";
+                sql = $@"insert into dbo.[{table}] (Codneg, [Data], Abertura, Maxima, Minima, Fechamento, Empresa) values (@Codneg, @Data, @Abertura, @Maxima, @Minima, @Fechamento, @Empresa)";
 
             return sql;
         }
@@ -260,7 +255,7 @@ where Ativo = @Ativo and [Data] = @Data";
 if object_id('{table}') is null
 begin
     create table {table} (
-	    Ativo varchar(50) default('') not null,
+	    Codneg varchar(50) default('') not null,
 	    [Data] datetime not null,
 	    Abertura decimal(10, 2) default(0) not null,
 	    Maxima decimal(10, 2) default(0) not null,
@@ -268,7 +263,7 @@ begin
 	    Fechamento decimal(10, 2) default(0) not null,
 	    Empresa varchar(50) default('') not null,
 
-	    primary key (Ativo, [Data])
+	    primary key (Codneg, [Data])
     )
 end
 ";
