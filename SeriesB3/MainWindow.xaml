@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converters="clr-namespace:SeriesB3.Converters"
         xmlns:extenders="clr-namespace:SeriesB3.Extenders"
-        Title="MainWindow" Height="450" Width="500" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize"
+        Title="MainWindow" Width="500" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" SizeToContent="Height"
         >
 
     <Window.Resources>
@@ -34,8 +34,8 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Arquivo com séries históricas da b3"/>
-                    <TextBlock Style="{StaticResource TextBlockLink}" Text="Baixa" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" Grid.Column="1"/>
+                    <TextBlock Text="Arquivo com séries históricas b3"/>
+                    <TextBlock Style="{StaticResource TextBlockLink}" Text="Baixar" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" Grid.Column="1"/>
                 </Grid>
                 <Grid Margin="0,0,0,10">
                     <Grid.ColumnDefinitions>
@@ -49,20 +49,20 @@
 
                 <CheckBox Content="Filtrar Ativos" ToolTip="Marque está opção para extrair dados somente dos Ativos específicos" IsChecked="{Binding ByAtivo}"/>
                 <TextBox x:Name="txtAtivs" Height="50" TextWrapping="Wrap" CharacterCasing="Upper" IsEnabled="{Binding ByAtivo}" ToolTip="Informe o código dos Ativos delimitador por ';' que deseja filtrar"
-                         Text="{Binding FilterAtivos, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding FilterAtivos, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"/>
 
                 <GroupBox Margin="0,5,0,0">
                     <GroupBox.Header>
                         <extenders:RadioButtonEnum x:Name="rdToCsv" Content="CSV" GroupName="raSend" EnumBinding="{Binding ToType}" EnumValue="ToCsv" IsChecked="True"/>
                     </GroupBox.Header>
                     <StackPanel IsEnabled="{Binding ElementName=rdToCsv, Path=IsChecked}">
-                        <CheckBox Content="Gerar arquivo CSV separado pelo nome do ativo" IsChecked="{Binding CsvSeparated}"/>
+                        <CheckBox Content="Gerar CSV separado para cada ativo" IsChecked="{Binding CsvSeparated}"/>
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox>
+                <GroupBox Margin="0,5,0,0">
                     <GroupBox.Header>
-                        <extenders:RadioButtonEnum x:Name="radSql" Content="SQL Server" GroupName="raSend" EnumBinding="{Binding ToType}" EnumValue="ToSql"/>
+                        <extenders:RadioButtonEnum x:Name="radSql" Content="Microsoft SQL Server" GroupName="raSend" EnumBinding="{Binding ToType}" EnumValue="ToSql"/>
                     </GroupBox.Header>
 
                     <StackPanel IsEnabled="{Binding ElementName=radSql, Path=IsChecked}">
@@ -72,11 +72,11 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Connection String"/>
-                            <TextBlock Text="Limpar banco de dados" Grid.Column="1" Style="{StaticResource TextBlockLink}" ToolTip="Deleta todas as tabelas do banco de dados" MouseLeftButtonDown="ClearDatabase_Click"/>
+                            <TextBlock Text="Remover todas as tabelas do banco" Grid.Column="1" Style="{StaticResource TextBlockLink}" ToolTip="Deleta todas as tabelas do banco de dados" MouseLeftButtonDown="ClearDatabase_Click"/>
                         </Grid>
                         <TextBox x:Name="txtConnectionString" Text="{Binding ConnectionString, UpdateSourceTrigger=PropertyChanged}"/>
                         <CheckBox Content="Limpa tabela antes de salvar os dados" Margin="0,5,0,0" IsChecked="{Binding DropTable}" ToolTip="Exclui todos os dados existentes antes de salvar os novos"/>
-                        <CheckBox Content="Salvar em tabela separada pelo nome do ativo" IsChecked="{Binding IsTableSeparated, UpdateSourceTrigger=PropertyChanged}"
+                        <CheckBox Content="Salvar em tabela separada para cada ativo" IsChecked="{Binding IsTableSeparated, UpdateSourceTrigger=PropertyChanged}"
                               Margin="0,5"  ToolTip="Cria uma tabela para cada ativo e salva os dados separadamente em cada tabela"/>
                         <TextBlock Text="Tabela"/>
                         <TextBox x:Name="txtTable" Text="{Binding Table, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsTableSeparated, Converter={StaticResource BooleanToVisibilityConverterReverse}}"
@@ -85,7 +85,7 @@
                 </GroupBox>
             </StackPanel>
 
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
                 <Button Height="20" Width="250" Content="Gerar" Click="Execute_Click"/>
             </StackPanel>
         </Grid>
