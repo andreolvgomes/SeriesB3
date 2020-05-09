@@ -12,8 +12,6 @@ namespace SeriesB3
     /// </summary>
     public class ReadFile : IDisposable
     {
-        private string codigoBDI = "02";//ações
-
         /// <summary>
         /// Readl file
         /// </summary>
@@ -34,8 +32,7 @@ namespace SeriesB3
                     if (counter == 1)
                         continue;
 
-                    //CODBDI - CÓDIGO BDI
-                    if (this.Str(ln, 2, 11) != codigoBDI)
+                    if (!this.Check(ln))
                         continue;
 
                     Infors inf = new Infors();
@@ -56,6 +53,30 @@ namespace SeriesB3
             }
         }
 
+        private bool Check(string ln)
+        {
+            // http://www.b3.com.br/data/files/C8/F3/08/B4/297BE410F816C9E492D828A8/SeriesHistoricas_Layout.pdf
+            // TABELA DE CODBDI - RELAÇÃO DOS VALORES PARA CÓDIGOS DE BDI
+            // 02 LOTE PADRAO
+            // 96 MERCADO FRACIONARIO
+            // TABELA DE CODBDI - RELAÇÃO DOS VALORES PARA CÓDIGOS DE BDI 
+            // 05 SANCIONADAS PELOS REGULAMENTOS BMFBOVESPA
+            // 07 RECUPERACAO EXTRAJUDICIAL
+            // 08 RECUPERAÇÃO JUDICIAL
+            // 12 FUNDOS IMOBILIARIOS   
+            // 58 OUTROS
+            // .... E OUTRO, TUDO SE ENCAIXA COMO MERCADO A VISTA, ENTÃO NÃO LEVAR EM CONSIDERAÇÃO SOMENTE O "TPMERC"
+            if (this.Str(ln, 2, 11) == "02")
+            {
+                // TABELA DE TPMERC - RELAÇÃO DOS VALORES PARA TIPO DE MERCADO
+                // 010 VISTA
+                // 020 FRACIONÁRIO
+                if (this.Str(ln, 3, 25) == "010")
+                    return true;
+            }
+            return false;
+        }
+
         public IEnumerable<string> CodNeg(string file)
         {
             using (StreamReader reader = new StreamReader(file))
@@ -72,8 +93,7 @@ namespace SeriesB3
                     if (counter == 1)
                         continue;
 
-                    //CODBDI - CÓDIGO BDI
-                    if (this.Str(ln, 2, 11) != codigoBDI)
+                    if (!this.Check(ln))
                         continue;
 
                     string codneg = this.Str(ln, 12, 13);
