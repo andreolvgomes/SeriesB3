@@ -9,11 +9,14 @@ namespace SeriesB3
 {
     /// <summary>
     /// read file txt b3
+    /// https://www.youtube.com/watch?v=Znpbz6RzLFI&feature=youtu.be
+    /// https://albertosouza.net/artigos/22-importando-dados-bovespa
+    /// http://www.bmfbovespa.com.br/pt_br/servicos/market-data/historico/mercado-a-vista/cotacoes-historicas/
     /// </summary>
     public class ReadFile : IDisposable
     {
         /// <summary>
-        /// Readl file
+        /// Read file
         /// </summary>
         /// <param name="file"></param>
         public IEnumerable<Infors> Series(string file)
@@ -53,6 +56,11 @@ namespace SeriesB3
             }
         }
 
+        /// <summary>
+        /// Check cod
+        /// </summary>
+        /// <param name="ln"></param>
+        /// <returns></returns>
         private bool Check(string ln)
         {
             // http://www.b3.com.br/data/files/C8/F3/08/B4/297BE410F816C9E492D828A8/SeriesHistoricas_Layout.pdf
@@ -77,6 +85,11 @@ namespace SeriesB3
             return false;
         }
 
+        /// <summary>
+        /// Read all codeneg
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
         public IEnumerable<string> CodNeg(string file)
         {
             using (StreamReader reader = new StreamReader(file))
@@ -157,6 +170,9 @@ namespace SeriesB3
             return Convert.ToDateTime(formattedDate);
         }
 
+        /// <summary>
+        /// Dispose
+        /// </summary>
         public void Dispose()
         {
             GC.SuppressFinalize(this);
