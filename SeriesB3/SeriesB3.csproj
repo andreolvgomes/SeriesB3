@@ -73,6 +73,7 @@
     <Compile Include="Extensions\Decimais.cs" />
     <Compile Include="Extensions\Strings.cs" />
     <Compile Include="Helpers\Connection.cs" />
+    <Compile Include="Helpers\ScriptDb.cs" />
     <Compile Include="Provider.Validations.cs" />
     <Compile Include="Provider.Properties.cs" />
     <Compile Include="Provider.Methods.cs" />

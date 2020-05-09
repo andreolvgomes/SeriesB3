@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SeriesB3.Helpers;
+using System;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -87,7 +88,7 @@ namespace SeriesB3
                 if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     this.provider.FileCsv = folderBrowserDialog1.SelectedPath;
-                    return this.provider.SaveCsvSapareted();
+                    return this.provider.SaveCsvSepareted();
                 }
             }
             else
@@ -168,7 +169,7 @@ namespace SeriesB3
             try
             {
                 if (!this.provider.ValidConnectionString()) return;
-                this.provider.ClearDatabase();
+                ScriptDb.ClearDatabase(this.provider.ConnectionString);
                 MessageBox.Show("Processo concluído com sucesso!", "Atenção", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
